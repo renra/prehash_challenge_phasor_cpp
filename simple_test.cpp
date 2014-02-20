@@ -14,7 +14,6 @@ class SimpleTest{
   public:
   SimpleTest(ostream * _p_output){
     count = 0;
-
     reporter = new SimpleTestReporter(_p_output);
   }
 
@@ -68,8 +67,6 @@ class SimpleTest{
     this->reporter->print_failure(to_string(this->get_failed()));
     this->reporter->print_failure(" failed.");
     this->reporter->new_line();
-
-
   }
 
   int get_count() const{
