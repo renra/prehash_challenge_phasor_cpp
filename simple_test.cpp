@@ -58,6 +58,7 @@ class SimpleTest{
       this->reporter->print_failure(*it);
     }
 
+    //TODO: decouple - reporter is not reporter
     this->reporter->new_line();
 
     this->reporter->print(to_string(this->get_count()));
