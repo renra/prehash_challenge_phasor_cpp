@@ -1,0 +1,4 @@
+# metadata.txt
+estimated_time: 3h
+level: junior
+environment: c++11
