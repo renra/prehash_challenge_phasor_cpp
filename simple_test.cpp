@@ -8,13 +8,14 @@ using namespace std;
 
 class SimpleTest{
   vector<string> error_messages;
+
   SimpleTestReporter * reporter = NULL;
   int count;
 
   public:
   SimpleTest(ostream * _p_output){
-    count = 0;
-    reporter = new SimpleTestReporter(_p_output);
+    this->count = 0;
+    this->reporter = new SimpleTestReporter(_p_output);
   }
 
   ~SimpleTest(){

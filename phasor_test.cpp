@@ -1,8 +1,8 @@
 #include <iostream>
 #include <sstream>
-#include <queue>
-#include "./phasor.cpp"
 #include "./simple_test.cpp"
+
+#include "./phasor.cpp"
 
 using namespace std;
 
@@ -10,7 +10,7 @@ void test_rect2pol(SimpleTest*);
 void test_pol2rect(SimpleTest*);
 
 int main(){
-  bool rc;
+  int rc = 0;
   SimpleTest * test = new SimpleTest(&std::cout);
 
   test_rect2pol(test);
@@ -22,7 +22,6 @@ int main(){
   delete test;
   return rc;
 }
-
 
 void test_rect2pol(SimpleTest * test){
   Phasor p(1, 1);

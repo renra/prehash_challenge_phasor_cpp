@@ -1,0 +1,12 @@
+readonly:
+  - phasor_test.cpp
+
+hide:
+  - .git/
+  - .gitignore
+  - init.sh
+  - README.html
+  - run.sh
+  - simple_test.cpp
+  - simple_test_reporter.cpp
+  - phasor_test$
