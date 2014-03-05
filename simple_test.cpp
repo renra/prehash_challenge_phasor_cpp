@@ -1,13 +1,17 @@
 #include <ostream>
+#include <sstream>
 #include <vector>
+#include <set>
 #include <string>
 #include <cmath>
-#include "./simple_test_reporter.cpp"
+#include <cstdarg>
+#include "simple_test_reporter.cpp"
 
 using namespace std;
 
 class SimpleTest{
   vector<string> error_messages;
+  set<int> expected_tests;
 
   SimpleTestReporter * reporter = NULL;
   int count;
@@ -20,6 +24,21 @@ class SimpleTest{
 
   ~SimpleTest(){
     delete reporter;
+  }
+
+  void expect(int test_count, ...){
+    va_list tests;
+    va_start(tests, test_count);
+
+    for(int i = 0; i < test_count; i++){
+      expected_tests.insert((int)va_arg(tests, int));
+    }
+
+    va_end(tests);
+  }
+
+  void identify(int test_id){
+    expected_tests.erase(expected_tests.find(test_id));
   }
 
   void assert_equal(double subject, double etalon, int precision, int line_number, string file){
@@ -49,41 +68,49 @@ class SimpleTest{
   }
 
   void report(){
-    this->reporter->new_line();
+    int yet_expected = expected_tests.size();
+
+    reporter->new_line();
 
     for(
       vector<string>::iterator it = error_messages.begin();
       it != error_messages.end();
       ++it
     ){
-      this->reporter->print_failure(*it);
+      reporter->print_failure(*it);
     }
 
-    //TODO: decouple - reporter is not reporter
-    this->reporter->new_line();
+    //TODO: decouple test and reporter
+    reporter->new_line();
 
-    this->reporter->print(to_string(this->get_count()));
-    this->reporter->print(" tests, ");
-    this->reporter->print_success(to_string(this->get_passed()));
-    this->reporter->print_success(" passed, ");
-    this->reporter->print_failure(to_string(this->get_failed()));
-    this->reporter->print_failure(" failed.");
-    this->reporter->new_line();
+    reporter->print(to_string(get_count()));
+    reporter->print(" tests run, ");
+    reporter->print_success(to_string(get_passed()));
+    reporter->print_success(" passed, ");
+    reporter->print_failure(to_string(get_failed()));
+    reporter->print_failure(" failed.");
+    reporter->new_line();
+
+    if(yet_expected > 0){
+      reporter->print_failure(to_string(yet_expected));
+      reporter->print_failure(" more test(s) expected");
+      reporter->new_line();
+    }
   }
 
   int get_count() const{
-    return this->count;
+    return count;
   }
 
   int get_passed() const{
-    return this->count - this->error_messages.size();
+    return count - error_messages.size();
   }
 
   int get_failed() const{
-    return this->error_messages.size();
+    return error_messages.size();
   }
 
   int error_status(){
-    return error_messages.empty() ? 0 : 1;
+    return (error_messages.empty() && expected_tests.size() == 0) ? 0 : 1;
   }
 };

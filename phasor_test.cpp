@@ -1,38 +1,27 @@
 #include <iostream>
-#include <sstream>
-#include "./simple_test.cpp"
-
-#include "./phasor.cpp"
+#include "simple_test.cpp"
+#include "tests.cpp"
+#include "test_opts.cpp"
 
 using namespace std;
 
-void test_rect2pol(SimpleTest*);
-void test_pol2rect(SimpleTest*);
-
 int main(){
   int rc = 0;
-  SimpleTest * test = new SimpleTest(&std::cout);
+  SimpleTest * test_wrapper = new SimpleTest(&std::cout);
 
-  test_rect2pol(test);
-  test_pol2rect(test);
+  test_wrapper->expect(
+    8,
+    rect_init_real, rect_init_imag,
+    pol_init_mag, pol_init_phase,
+    rect2pol_mag, rect2pol_phase,
+    pol2rect_real, pol2rect_imag
+  );
 
-  test->report();
-  rc = test->error_status();
+  run_tests(test_wrapper);
 
-  delete test;
+  test_wrapper->report();
+  rc = test_wrapper->error_status();
+
+  delete test_wrapper;
   return rc;
-}
-
-void test_rect2pol(SimpleTest * test){
-  Phasor p(1, 1);
-
-  test->assert_equal(p.get_magnitude(), 1.41, 2, __LINE__, __FILE__);
-  test->assert_equal(p.get_phase(), 45, __LINE__, __FILE__);
-}
-
-void test_pol2rect(SimpleTest * test){
-  Phasor p(10, 90, true);
-
-  test->assert_equal(p.get_real(), 0, 2, __LINE__, __FILE__);
-  test->assert_equal(p.get_imag(), 10, __LINE__, __FILE__);
 }

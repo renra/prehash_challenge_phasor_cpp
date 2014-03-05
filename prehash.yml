@@ -1,5 +1,7 @@
 readonly:
   - phasor_test.cpp
+  - tests.cpp
+  - testing_methods.cpp
 
 hide:
   - .git/
