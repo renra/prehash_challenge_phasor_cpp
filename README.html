@@ -1,7 +1,43 @@
 <p>
-  When working with sinusodial signals like the ones you can find in our current electricity distribution system, it is much easier to work with complex numbers like a+bj where, j^2 = -1. This is called the rectangular form of the complex number. In this way, numbers a and b mean the coordinates of the complex number on the Real and Imaginary axis, respectively. In some cases it is advantageous to convert this form to the so called polar coordinates form where the important things are magnitude (size of the vector in the complex plane) and phase angle(the angle the vector holds with the Real axis). Complex numbers in the polar form are called phasors.
+When working with sinusoidial signals like the ones you can find in our current electricity distribution system, it is much easier to work with complex numbers like <span style="color: 14a0e6">a+bj</span> where, j^2 = -1. This is called the <span style="color: 14a0e6">rectangular</span> form of the complex number. In this way, numbers <span style="color: 14a0e6">a</span> and <span style="color: 14a0e6">b</span> mean the coordinates of the signal on the complex plane - the Real and Imaginary axis, respectively. In some cases it is advantageous to convert this form to the so called <span style="color: 14a0e6">polar</span> form where the important things are <span style="color: 14a0e6">magnitude</span> (size of the vector in the complex plane) and <span style="color: 14a0e6">phase</span> angle (the angle the vector holds with the Real axis). The representation of the signal in the polar form is called a phase vector or a <span style="color: 14a0e6">phasor</span>.
 </p>
 
 <p>
-  Your task will be to create a class representing the phasor. It must be possible to instantiate instances of this class using either rectangular or polar coordinates and convert between the two. Then you will have to implement the basic arithmetics of phasors - addition, subtraction, multiplication and division. This class could then be applied for example to an automatic solver of AC circuits.
+Your task is to create a class representing the phasor. It must be possible to instantiate this class using either rectangular or polar coordinates and convert between the two. Then you will have to implement the basic arithmetics of phasors - <span style="color: 14a0e6">addition</span>, <span style="color: 14a0e6">subtraction</span>, <span style="color: 14a0e6">multiplication</span> and <span style="color: 14a0e6">division</span>. This class could then be applied for example to an automatic solver of AC circuits.
+</p>
+
+<p>
+So how to convert. The original AC signal has a general form <span style="color: 14a0e6">A*cos(wt + theta)</span> where A is the amplitude (peak), w is angular frequency in radians per second, t stands for time (the signal varies in time) and theta is the phase angle (how much the signal is shifted to the left or right from the normal cosine).
+</p>
+
+<p>
+The phasor of such a signal preserves only the information about its amplitude, or magnitude, and phase so it's written as <span style="color: 14a0e6">A&lsaquo;theta</span>. If you want to convert this into the rectangular form, the formula is <span style="color: 14a0e6">a = A*cos(theta)</span> - that is the coordinate on the real axis - and <span style="color: 14a0e6">b = A*sin(theta)</span> - which is the imaginary coordinate.
+</p>
+
+<p>
+Now if you have the rectangular form and want to convert to the polar, the formulas are <span style="color: 14a0e6">A = sqrt(a^2 + b^2)</span> and <span style="color: 14a0e6">theta = arctan(b/a)</span>. All these mathematical methods are shipped with C++ so you get them for free.
+</p>
+
+<p>
+One important thing to keep in mind is that the angles that your program accepts and outputs must always be in degrees. So you'll also have to know how to convert these angles to radians. Basically 360 degress is the same thing as 2pi radians. From that you can derive that to obtain radians from an angle in degrees, you have to <span style="color: 14a0e6">multiply it by pi and then divide by 180</span>. And if you want to go the other way, do the opposite, <span style="color: 14a0e6">multiply the angle in radians by 180 and then divide by pi</span>.
+</p>
+
+<p>For more information, better explanations, graphs and all that you could wish to know, see <a href="http://en.wikipedia.org/wiki/Phasor" class="external">Wikipedia</a>.</p>
+
+<p>
+Next you also need to know how to do basic arithmetic operations with the phasors and hopefully the coversions from above will start to make sense here. <span style="color: 14a0e6">Adding and subtracting</span> phasors is easier when you do it in the rectangular form and it works like this:
+</p>
+
+<div style="color: 14a0e6; text-align: center">aj1 + b1j + a2 + b2j = (a1 + a2) + (b1 + b2)j</div>
+<div style="color: 14a0e6; text-align: center">a1 + b1j - (a2 + b2j) = (a1 - a2) + (b1 - b2)j</div>
+
+<p>
+Multiplying and dividing phasors is on the contrary easier in the polar form and it works like this:
+</p>
+
+<div style="color: 14a0e6; text-align: center">A1&lsaquo;theta1 * A2&lsaquo;theta2 = A1*A2&lsaquo;(theta1 + theta2)</div>
+<div style="color: 14a0e6; text-align: center">A1&lsaquo;theta1 / A2&lsaquo;theta2 = (A1/A2)&lsaquo;(theta1 - theta2)</div>
+
+<p>
+See? That's much easier than dividing complex numbers. So that's all that you need to know to complete the challenge. <span style="color: 14a0e6">Good luck!</span>
 </p>
