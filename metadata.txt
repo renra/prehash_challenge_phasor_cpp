@@ -1,4 +1,4 @@
 # metadata.txt
 estimated_time: 3h
 level: junior
-environment: c++11
+environment: gcc-4.7.2
