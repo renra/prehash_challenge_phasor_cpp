@@ -1,4 +1,4 @@
 # metadata.txt
-estimated_time: 3h
+estimated_time: 1h
 level: junior
 environment: gcc-4.7.2

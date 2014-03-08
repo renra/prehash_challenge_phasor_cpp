@@ -18,8 +18,8 @@ class SimpleTest{
 
   public:
   SimpleTest(ostream * _p_output){
-    this->count = 0;
-    this->reporter = new SimpleTestReporter(_p_output);
+    count = 0;
+    reporter = new SimpleTestReporter(_p_output);
   }
 
   ~SimpleTest(){
@@ -60,10 +60,10 @@ class SimpleTest{
       error << " in file " << file  << ":" << line_number << endl;
       error_messages.push_back(error.str());
 
-      this->reporter->print_failure("F");
+      reporter->print_failure("F");
     }
     else{
-      this->reporter->print_success(".");
+      reporter->print_success(".");
     }
   }
 
